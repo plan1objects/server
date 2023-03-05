@@ -1,0 +1,10 @@
+$w : 1280px;
+$m0 : 0 auto;
+$main : #333;
+
+
+@mixin wrap{
+    width: 1280px;
+    margin: $m0;
+    color: $main;
+}

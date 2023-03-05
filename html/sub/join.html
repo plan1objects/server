@@ -1,0 +1,129 @@
+<?php include_once("../layout/header.html"); ?>
+
+    <form id="join" method="post" action="./signup_action.php">
+            <h2>간편회원가입</h2>
+            <p>
+                <span class="form_title">이름 : </span>
+                <input type="text" placeholder="한글로 입력해 주세요." name="name" autofocus required >
+            </p>
+            <p>
+                <span class="form_title">아이디 : </span>
+                <input id="id" type="text" placeholder="영문 및 숫자 조합만 가능." name="ID" required maxlength="10">
+                <button type="button" onclick="idcheck();">중복체크</button>
+            </p>
+            
+            <p>
+                <span class="form_title">비밀번호 : </span>
+                <input id="pw1" type="password" placeholder="영문 및 숫자 조합만 가능하며 특수문자 혼합사용." name="PW" required>
+            </p>
+            <p>
+                <span class="form_title">비밀번호 : </span>
+                <input id="pw2" onblur="pwchk();" type="password" placeholder="비밀번호를 다시한번 입력해주세요" name="PW2" required>
+            </p>
+            <p>
+                <span class="form_title">이메일 : </span>
+                <input id="email" type="text" name="email" required>
+                <button type="button" onclick="emailchk();">중복체크</button>
+            </p>
+            <p>
+                <span class="form_title">전화번호 : </span>
+                <input id="tel" type="text" name="tel" required>
+            </p>
+            <p>
+                <span class="form_title">성별 : </span>
+                <input type="radio" name="gender" id="man" checked>
+                <label for="man">남자</label>
+                <input type="radio" name="gender" id="woman">
+                <label for="woman">여자</label>
+                <input type="radio" name="gender" id="nocoment">
+                <label for="nocoment">말하고싶지 않음</label>
+            </p>
+            <p>
+                <span class="form_title">관심사 : </span>
+                <input type="checkbox" id="check_01" value="fav_01" name="checke_fav" checked>
+                <label for="check_01">사회</label>
+                <input type="checkbox" id="check_02" value="fav_02" name="checke_fav">
+                <label for="check_02">IT</label>
+                <input type="checkbox" id="check_03" value="fav_03" name="checke_fav">
+                <label for="check_03">연예</label>
+                <input type="checkbox" id="check_04" value="fav_04" name="checke_fav">
+                <label for="check_04">경제</label>
+            </p>            
+            <p>
+                <span class="form_title">지역선택 : </span>
+                <select name="city">
+                    <optgroup label="서울시">
+                        <option value="gangnam-gu">강남구</option>
+                        <option value="seacho-gu">서초구</option>
+                        <option value="junggu-gu">중구</option>
+                    </optgroup>
+                    <optgroup label="경기도">
+                        <option value="seongnam-si">성남시</option>
+                        <option value="suwon-si">수원시</option>
+                        <option value="anyang-si">안양시</option>
+                    </optgroup>
+                </select>   
+            </p>
+            <p>
+                <input type="submit" value="회원가입">
+                <input type="reset" value="다시작성하기">
+            </p>
+    </form>
+    <script>
+        function pwchk(){
+            let pw1 = document.querySelector('#pw1').value;
+            let pw2 = document.querySelector('#pw2').value;
+            if(pw1 !== pw2){
+                alert('패스워드가 동일하지 않습니다.');
+            }
+        }
+        function emailchk(){
+            let emailcheck = document.querySelector('#email').value;
+
+            $.ajax({
+                type : 'POST',
+                url : 'email.php',
+                data : `email=${emailcheck}`,
+                error : function(){ 
+                    // php가 정상적으로 동작하지 않을때 발생되는 에러
+                    alert('통신실패');
+                },
+                success : function(result){
+        
+                    if(emailcheck == ""){
+                        alert('이메일을 입력해 주세요.');
+                    }else if(parseInt(result) > 0){
+                        alert('중복되는 이메일이 있습니다.');
+                    }else if(parseInt(result) === 0){
+                        alert('사용가능한 이메일 입니다.');
+                    }
+                }
+                });
+    	
+        }
+
+        function idcheck(){
+            let idcheck = document.querySelector('#id').value;
+
+            $.ajax({
+                type : 'POST',
+                url : 'id.php',
+                data : `ID=${idcheck}`,
+                error : function(){ 
+                    // php가 정상적으로 동작하지 않을때 발생되는 에러
+                    alert('통신실패');
+                },
+                success : function(result){
+        
+                    if(idcheck == ""){
+                        alert('아이디를 입력해 주세요.')
+                    }else if(parseInt(result) > 0){
+                        alert('중복되는 아이디가 있습니다.');
+                    }else if(parseInt(result) === 0){
+                        alert('사용가능한 아이디 입니다.');
+                    }
+                }
+                });
+        }
+    </script>
+<?php include_once("../layout/footer.html"); ?>

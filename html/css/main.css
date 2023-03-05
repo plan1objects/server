@@ -1,0 +1,61 @@
+.icon_01:hover{
+    color: red;
+}
+.icon_01:hover::before{
+    content: "\e900";
+}
+
+#join{
+    width: 800px;
+    margin:  0 auto;
+}
+#join p{
+    margin: 30px 0;
+}
+#join .form_title{
+    margin-left: 10px;
+    display: inline-block;
+    width: 100px;
+}
+#join input[type=text],
+#join input[type=password]{
+    line-height: 50px;
+    width: 400px;
+    text-indent: 15px;
+}
+#join input[type=submit],
+#join input[type=reset]{
+    display: inline-block;
+    border: 0;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+}
+#join p:last-child{
+    text-align: center;
+}
+#login{
+    width: 800px;
+    margin: 0 auto;
+}
+#login > div {
+    margin:  20px 0;
+}
+#login > div > p{
+    margin-bottom: 10px;
+}
+#login .btn1{
+    display: inline-block;
+    width: 100px;
+    background-color: #333;
+    border: 0;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+    text-decoration: none;
+}
+#login input{
+    line-height: 50px;
+    text-indent: 15px;
+    display: inline-block;
+}
